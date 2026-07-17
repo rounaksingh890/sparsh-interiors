@@ -430,7 +430,7 @@ try{
       g.rotation.set(u.se.x*(1-p),u.se.y*(1-p),u.se.z*(1-p));});
     room.rotation.y=(-0.35+scroll*0.5)+px*0.22;
     const ang=-0.35+p*0.4+px*0.12;
-    const fit=Math.min(2.6,Math.max(1,1.4/camera.aspect));
+    const fit=Math.min(4,Math.max(1,1.9/camera.aspect));
     const rad=(9.5-p*3.6)*fit;
     camera.position.set(Math.sin(ang)*rad, (3.0-p*1.0)*fit-py*0.7, Math.cos(ang)*rad+0.6);
     camera.lookAt(0,0.75+p*0.05,-0.6);
