@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- Proposal/demo site shared directly with the owner; kept out of search. -->
+<meta name="robots" content="noindex, nofollow" />
+<title>Sparsh Interiors — Home Interior Design in Panipat</title>
+<meta name="description" content="Sparsh Interiors, Panipat. Women-owned home interior design studio by Sparsh Khanna. 5.0★ on Google. Personalised living, bedroom, kitchen & full-home interiors." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Mulish:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg1:#463a33; --bg2:#2c231d; --cream:#faf5ee; --paper:#f3ebe0; --white:#fff;
+    --terra:#b85c4a; --rust:#bd6a4c; --sage:#87976f; --walnut:#6b4426; --brass:#c2a24e; --brass-lt:#dcc07a;
+    --ink:#33281f; --ink-soft:#4a3c30; --muted:#8a7a6c; --muted-lt:#c9bcaa;
+    --line:rgba(107,68,38,.16);
+    --disp:'Marcellus',Georgia,serif; --sans:'Mulish',system-ui,sans-serif;
+    --shadow:0 30px 70px -30px rgba(44,35,29,.5); --shadow-sm:0 14px 34px -18px rgba(44,35,29,.35);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;font-family:var(--sans);color:var(--ink);background:var(--cream);
+    -webkit-font-smoothing:antialiased;overflow-x:hidden}
+  #bg{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;
+    background:
+      radial-gradient(1000px 700px at 78% 8%, #6a5648 0%, transparent 55%),
+      radial-gradient(900px 700px at 8% 100%, #533f33 0%, transparent 55%),
+      linear-gradient(180deg,#463a33 0%,#2c231d 100%)}
+  canvas#three{position:fixed;inset:0;width:100%;height:100%;z-index:2;pointer-events:none}
+  main{position:relative;z-index:3}
+
+  header.nav{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;
+    justify-content:space-between;padding:16px clamp(18px,5vw,54px);transition:.4s}
+  header.nav.scrolled{background:rgba(44,35,29,.78);backdrop-filter:blur(14px);
+    box-shadow:0 10px 30px -22px #000;padding-top:12px;padding-bottom:12px}
+  .brand{display:flex;flex-direction:column;text-decoration:none;line-height:1}
+  .brand b{font-family:var(--disp);font-size:22px;letter-spacing:2px;color:#fff}
+  .brand span{font-size:9.5px;letter-spacing:3px;color:var(--brass-lt);text-transform:uppercase;margin-top:4px}
+  nav.links{display:flex;align-items:center;gap:26px}
+  nav.links a{font-size:13px;letter-spacing:.5px;text-decoration:none;color:#e7ded2;opacity:.85;transition:.2s}
+  nav.links a:hover{opacity:1;color:#fff}
+  .btn{display:inline-flex;align-items:center;gap:9px;border:none;cursor:pointer;font-family:var(--sans);
+    font-weight:600;font-size:13.5px;letter-spacing:.3px;padding:12px 22px;text-decoration:none;transition:.25s;white-space:nowrap;border-radius:2px}
+  .btn-brass{background:var(--brass);color:#2c231d}.btn-brass:hover{background:var(--brass-lt);transform:translateY(-2px)}
+  .btn-line{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.35)}.btn-line:hover{border-color:#fff;background:rgba(255,255,255,.06)}
+  .btn-ink{background:var(--ink);color:#fff}.btn-ink:hover{background:var(--ink-soft);transform:translateY(-2px)}
+  .wa-ico{width:16px;height:16px;fill:currentColor}
+
+  .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;
+    padding:120px clamp(20px,6vw,80px) 90px;max-width:1240px;margin:0 auto}
+  .hero .eyebrow{font-family:var(--disp);font-size:13px;letter-spacing:5px;text-transform:uppercase;color:var(--brass-lt);margin-bottom:20px}
+  .hero h1{font-family:var(--disp);color:#fff;font-size:clamp(52px,10vw,118px);line-height:.94;margin:0;letter-spacing:1px}
+  .hero h1 em{font-style:italic;color:var(--brass-lt)}
+  .hero .tag{color:#e4dacd;font-size:clamp(16px,2.2vw,22px);margin:26px 0 0;max-width:620px;line-height:1.6;font-weight:300}
+  .hero .tag b{color:#fff;font-weight:600}
+  .cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:38px}
+  .trust{display:flex;flex-wrap:wrap;gap:0;margin-top:50px;border-top:1px solid rgba(255,255,255,.14);max-width:660px}
+  .trust .t{padding:20px 32px 4px 0;margin-right:32px;border-right:1px solid rgba(255,255,255,.14)}
+  .trust .t:last-child{border-right:none}
+  .trust .t b{display:block;font-family:var(--disp);font-size:28px;color:#fff;line-height:1}
+  .trust .t span{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted-lt);margin-top:7px;display:block}
+  .trust .stars{color:var(--brass-lt)}
+  .scrollcue{margin-top:44px;font-family:var(--disp);font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--muted-lt)}
+
+  .build-stage{position:relative;z-index:3;height:155vh;pointer-events:none}
+  .build-cap{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;padding-bottom:11vh;text-align:center}
+  .build-cap span{font-family:var(--disp);font-size:12px;letter-spacing:5px;text-transform:uppercase;color:var(--brass-lt)}
+  .build-cap b{display:block;font-family:var(--disp);font-size:clamp(22px,3.4vw,38px);color:#fff;margin-top:12px;letter-spacing:.5px;font-weight:400}
+
+  .panel{position:relative;z-index:3}
+  .panel.light{background:var(--cream)}.panel.paper{background:var(--paper)}
+  .panel.dark{background:var(--bg2);color:#ece3d7}
+  .wrap{max-width:1140px;margin:0 auto;padding:clamp(72px,10vw,128px) clamp(20px,5vw,44px)}
+  .kicker{font-family:var(--disp);font-size:13px;letter-spacing:4px;text-transform:uppercase;color:var(--terra);margin-bottom:16px}
+  .panel.dark .kicker{color:var(--brass-lt)}
+  .headline{font-family:var(--disp);color:var(--ink);font-size:clamp(32px,5vw,54px);line-height:1.06;margin:0 0 20px;max-width:16ch}
+  .panel.dark .headline{color:#fff}
+  .lead{color:var(--ink-soft);font-size:clamp(15px,1.8vw,18px);line-height:1.85;max-width:620px}
+  .panel.dark .lead{color:#cbc0b2}
+
+  .reveal{opacity:0;transform:translateY(34px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+  .d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}
+
+  .about{display:grid;grid-template-columns:.92fr 1.08fr;gap:clamp(30px,5vw,70px);align-items:center}
+  .about .frame{aspect-ratio:1/1.2;position:relative;box-shadow:var(--shadow);overflow:hidden;border-radius:3px;
+    background:radial-gradient(120% 90% at 30% 10%,#c98f6f 0%,transparent 55%),linear-gradient(150deg,#9c6a4e,#4a3226)}
+  .about .frame .mono{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--disp);font-size:clamp(120px,20vw,220px);color:rgba(255,255,255,.9)}
+  .about .frame .tg{position:absolute;left:22px;bottom:22px;right:22px;color:#fff}
+  .about .frame .tg b{font-family:var(--disp);font-size:21px;letter-spacing:.5px;display:block}
+  .about .frame .tg span{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--brass-lt)}
+  .about p{color:var(--ink-soft);line-height:1.9;margin:0 0 18px;font-size:15.5px}
+  .about .sign{font-family:var(--disp);font-size:22px;color:var(--ink);margin-top:8px}
+  .about .sign span{display:block;font-family:var(--sans);font-size:13px;color:var(--muted);margin-top:4px;letter-spacing:.5px}
+
+  .svcs{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .svc{background:var(--white);border:1px solid var(--line);border-radius:4px;padding:34px 28px;transition:.35s}
+  .svc:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+  .svc .ic{font-size:26px;width:54px;height:54px;border-radius:3px;display:grid;place-items:center;background:var(--paper);margin-bottom:18px}
+  .svc h4{font-family:var(--disp);font-size:22px;color:var(--ink);margin:0 0 10px;letter-spacing:.3px}
+  .svc p{color:var(--muted);font-size:14px;line-height:1.7;margin:0}
+
+  .gal{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:160px;gap:16px}
+  .gi{position:relative;overflow:hidden;border-radius:4px;display:flex;align-items:flex-end;padding:18px;color:#fff;transition:.4s;box-shadow:var(--shadow-sm)}
+  .gi:hover{transform:translateY(-4px)}
+  .gi b{font-family:var(--disp);font-size:20px;position:relative;z-index:2;letter-spacing:.5px}
+  .gi small{position:relative;z-index:2;display:block;font-size:11px;color:var(--brass-lt);letter-spacing:2px;text-transform:uppercase;margin-bottom:3px}
+  .gi::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(44,35,29,.72))}
+  .s1{grid-column:span 2;grid-row:span 2;background:radial-gradient(120% 120% at 20% 10%,#d8a986,transparent 55%),linear-gradient(150deg,#a56b4c,#3f2a1f)}
+  .s2{background:linear-gradient(150deg,#9aa87f,#4a4a34)}
+  .s3{background:linear-gradient(150deg,#c98f6f,#6b3f2c)}
+  .s4{grid-column:span 2;background:radial-gradient(120% 120% at 80% 20%,#e2c08a,transparent 55%),linear-gradient(120deg,#b07a4e,#4a3021)}
+  .s5{background:linear-gradient(150deg,#bd8a6a,#5a3826)}
+  .s6{background:linear-gradient(150deg,#9c8f7c,#463a2c)}
+  .gnote{font-size:12.5px;color:var(--muted);margin-top:18px}
+
+  .rhead{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:44px}
+  .rhead .big{font-family:var(--disp);font-size:66px;color:#fff;line-height:1}
+  .rhead .st{color:var(--brass-lt);font-size:22px;letter-spacing:2px}
+  .rhead .mt{color:var(--muted-lt);font-size:14px}
+  .revs{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .rev{background:#372c24;border:1px solid rgba(255,255,255,.08);border-radius:4px;padding:30px 28px}
+  .rev p{color:#e4dacd;font-size:14.5px;line-height:1.75;margin:0 0 20px;font-style:italic}
+  .rev .who{display:flex;align-items:center;gap:12px}
+  .rev .av{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--terra),var(--walnut));display:grid;place-items:center;color:#fff;font-family:var(--disp);font-size:18px}
+  .rev .who b{display:block;font-size:13.5px;color:#fff}.rev .who span{font-size:11.5px;color:var(--muted-lt)}
+  .rev .who .g{margin-left:auto;font-size:11px;color:var(--brass-lt)}
+
+  .visit{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,48px)}
+  .visit h3{font-family:var(--disp);font-size:32px;color:var(--ink);margin:0 0 26px}
+  .vrow{display:flex;gap:15px;padding:16px 0;border-bottom:1px solid var(--line)}
+  .vrow:last-child{border-bottom:none}
+  .vrow .vi{width:40px;height:40px;flex:none;border-radius:3px;background:var(--paper);display:grid;place-items:center;font-size:18px}
+  .vrow b{display:block;font-family:var(--disp);font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--terra);margin-bottom:4px}
+  .vrow p{margin:0;color:var(--ink);font-size:15px;line-height:1.55}
+  .vrow a{color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(51,40,31,.3)}
+  .mapcard{position:relative;overflow:hidden;min-height:340px;border-radius:4px;display:flex;align-items:flex-end;padding:26px;color:#fff;text-decoration:none;box-shadow:var(--shadow);
+    background:radial-gradient(140% 120% at 20% 0%,#c98f6f 0%,transparent 45%),linear-gradient(150deg,#8a5a3e,#2c231d)}
+  .mapcard .grd{position:absolute;inset:0;opacity:.16;background-image:linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px);background-size:40px 40px}
+  .mapcard .pin{position:absolute;top:44%;left:50%;transform:translate(-50%,-50%)}
+  .mapcard .pin .dot{width:16px;height:16px;background:var(--brass-lt);border-radius:50% 50% 50% 0;transform:rotate(-45deg);box-shadow:0 0 0 7px rgba(220,192,122,.14)}
+  .mapcard .mb{position:relative;z-index:2}.mapcard .mb b{font-family:var(--disp);font-size:21px;display:block}.mapcard .mb span{font-size:12px;color:var(--brass-lt)}
+
+  .ownote{max-width:780px;margin:0 auto;text-align:center;padding:clamp(32px,4vw,46px);border:1.5px dashed var(--brass);border-radius:5px;background:rgba(255,255,255,.03)}
+  .ownote .bd{display:inline-block;font-family:var(--disp);font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--brass-lt);border:1px solid var(--brass);padding:6px 15px;margin-bottom:16px}
+  .ownote h3{font-family:var(--disp);font-size:clamp(24px,3.6vw,34px);color:#fff;margin:0 0 12px}
+  .ownote p{color:#cbc0b2;line-height:1.75;font-size:15.5px;margin:0 auto 20px;max-width:580px}
+  .ownote .pill{display:inline-block;font-family:var(--sans);font-weight:600;font-size:13px;color:#2c231d;background:var(--brass);padding:11px 22px;border-radius:2px}
+
+  footer{position:relative;z-index:3;background:#251d18;color:#cbc0b2;padding:60px clamp(20px,5vw,44px) 40px}
+  footer .fin{max-width:1140px;margin:0 auto;display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;align-items:flex-end}
+  footer .fbrand{font-family:var(--disp);font-size:28px;letter-spacing:2px;color:#fff}
+  footer .fbrand span{display:block;font-size:11px;letter-spacing:2px;color:var(--brass-lt);margin-top:6px}
+  footer .fsoc{display:flex;gap:12px}
+  footer .fsoc a{width:40px;height:40px;border:1px solid rgba(255,255,255,.14);border-radius:3px;display:grid;place-items:center;color:#cbc0b2;transition:.25s}
+  footer .fsoc a:hover{border-color:var(--brass-lt);color:#fff}
+  footer .fmeta{max-width:1140px;margin:34px auto 0;padding-top:22px;border-top:1px solid rgba(255,255,255,.12);font-size:12.5px;color:var(--muted);line-height:1.8}
+
+  .fab{position:fixed;right:20px;bottom:20px;z-index:30;width:56px;height:56px;border-radius:50%;background:#25d366;display:grid;place-items:center;box-shadow:0 12px 26px -10px rgba(0,0,0,.5);transition:.25s}
+  .fab:hover{transform:scale(1.08)}.fab svg{width:29px;height:29px;fill:#fff}
+
+  @media(max-width:900px){
+    nav.links a{display:none}
+    .about{grid-template-columns:1fr}.about .frame{max-width:400px;order:-1}
+    .svcs{grid-template-columns:1fr 1fr}
+    .gal{grid-template-columns:repeat(2,1fr)}.s1{grid-column:span 2}.s4{grid-column:span 2}
+    .revs{grid-template-columns:1fr}.visit{grid-template-columns:1fr}
+    footer .fin{flex-direction:column;align-items:flex-start}
+  }
+  @media(max-width:560px){.svcs{grid-template-columns:1fr}.cta{width:100%}.cta .btn{flex:1;justify-content:center}}
+  @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}}
+</style>
+</head>
+<body>
+<div id="bg" aria-hidden="true"></div>
+<canvas id="three" aria-hidden="true"></canvas>
+
+<header class="nav" id="nav">
+  <a class="brand" href="#top" aria-label="Sparsh Interiors home"><b>Sparsh Interiors</b><span>Panipat · Women-owned</span></a>
+  <nav class="links" aria-label="Primary">
+    <a href="#about">Studio</a><a href="#services">Services</a><a href="#work">Work</a><a href="#reviews">Reviews</a>
+    <a class="btn btn-brass" href="https://wa.me/918222800466?text=Hi%20Sparsh%2C%20I%27d%20like%20to%20discuss%20interior%20design%20for%20my%20home%20with%20Sparsh%20Interiors." target="_blank" rel="noopener">
+      <svg class="wa-ico" viewBox="0 0 24 24"><path d="M.06 24l1.68-6.15A11.87 11.87 0 010 5.94 11.94 11.94 0 0111.94 0 11.94 11.94 0 0124 5.95a11.94 11.94 0 01-17.9 10.3L.06 24zM6.6 20.13l.36.22a9.9 9.9 0 005.04 1.38A9.92 9.92 0 0022 5.95 9.9 9.9 0 0011.94 2 9.92 9.92 0 003.3 16.9l.24.38-1 3.65 4.06-.8z"/></svg>Book a consult</a>
+  </nav>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="eyebrow reveal in">Home interior design · Panipat</div>
+    <h1 class="reveal in" style="transition-delay:.08s">Rooms that feel<br><em>like you.</em></h1>
+    <p class="tag reveal in" style="transition-delay:.18s">Personalised, warm and liveable home interiors by <b>Sparsh Khanna</b>,
+      a proudly women-owned studio in Panipat. Rated a perfect <b>5.0★</b> by 40 clients on Google.</p>
+    <div class="cta reveal in" style="transition-delay:.28s">
+      <a class="btn btn-brass" href="https://wa.me/918222800466?text=Hi%20Sparsh%2C%20I%27d%20like%20to%20discuss%20interior%20design%20for%20my%20home%20with%20Sparsh%20Interiors." target="_blank" rel="noopener">
+        <svg class="wa-ico" viewBox="0 0 24 24"><path d="M.06 24l1.68-6.15A11.87 11.87 0 010 5.94 11.94 11.94 0 0111.94 0 11.94 11.94 0 0124 5.95a11.94 11.94 0 01-17.9 10.3L.06 24zM6.6 20.13l.36.22a9.9 9.9 0 005.04 1.38A9.92 9.92 0 0022 5.95 9.9 9.9 0 0011.94 2 9.92 9.92 0 003.3 16.9l.24.38-1 3.65 4.06-.8z"/></svg>Book a free consult</a>
+      <a class="btn btn-line" href="tel:+918222800466">Call +91 82228 00466</a>
+    </div>
+    <div class="trust reveal in" style="transition-delay:.38s">
+      <div class="t"><b class="stars">5.0★</b><span>40 Google reviews</span></div>
+      <div class="t"><b>2D→3D</b><span>Plan &amp; visualise</span></div>
+      <div class="t"><b>Yours</b><span>Tailored to budget</span></div>
+    </div>
+    <div class="scrollcue reveal in" style="transition-delay:.5s">scroll to furnish ↓</div>
+  </section>
+
+  <section class="build-stage" aria-hidden="true">
+    <div class="build-cap"><span>Empty room → your home</span><b>Watch a space become yours.</b></div>
+  </section>
+
+  <section class="panel light" id="about">
+    <div class="wrap about">
+      <div class="frame reveal"><div class="mono">S</div>
+        <div class="tg"><b>Sparsh Khanna</b><span>Founder &amp; Lead Designer</span></div></div>
+      <div>
+        <p class="kicker reveal">The Studio</p>
+        <h2 class="headline reveal d1">Homes designed around the people who live in them.</h2>
+        <p class="reveal d1">Sparsh Interiors is a women-owned studio in Sukhdev Nagar, Panipat, led by
+          <b>Sparsh Khanna</b>. The work is warm and personal: spaces shaped around how a family actually
+          lives, styled to feel like a calm, luxurious version of home.</p>
+        <p class="reveal d2">Every project is walked through from the first idea to the finished room, with
+          2D planning and 3D visualisation so you see it before it's built, and designs tailored to your taste
+          and your budget. Clients keep it simple in their reviews: a spotless <b>5.0-star</b> rating.</p>
+        <div class="sign reveal d3">Sparsh Khanna<span>Founder, Sparsh Interiors · Panipat</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel paper" id="services">
+    <div class="wrap">
+      <p class="kicker reveal">What we design</p>
+      <h2 class="headline reveal d1">From a single room to your whole home</h2>
+      <p class="lead reveal d2" style="margin-bottom:48px">Warm, functional interiors, planned properly and finished
+        with care. Tell us the space and the budget, and we'll design around both.</p>
+      <div class="svcs">
+        <div class="svc reveal"><div class="ic">🛋️</div><h4>Full Home Interiors</h4>
+          <p>End-to-end design for your whole home, from layout and colour to the final styling.</p></div>
+        <div class="svc reveal d1"><div class="ic">🍳</div><h4>Modular Kitchen &amp; Wardrobes</h4>
+          <p>Smart, storage-rich kitchens and wardrobes designed to fit your space and how you use it.</p></div>
+        <div class="svc reveal d2"><div class="ic">🛏️</div><h4>Living &amp; Bedroom Design</h4>
+          <p>Warm, restful living rooms and bedrooms, styled to feel personal and put-together.</p></div>
+        <div class="svc reveal"><div class="ic">📐</div><h4>2D Planning &amp; 3D Views</h4>
+          <p>See your home before it's built. Clear floor plans and realistic 3D visualisation.</p></div>
+        <div class="svc reveal d1"><div class="ic">🔨</div><h4>Turnkey Execution</h4>
+          <p>Handled from the first discussion to the final handover, so the vision stays intact.</p></div>
+        <div class="svc reveal d2"><div class="ic">💰</div><h4>Budget-Friendly Packages</h4>
+          <p>Beautiful, tailored designs planned to respect your budget, not stretch it.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel dark" id="work">
+    <div class="wrap">
+      <p class="kicker reveal">Selected Work</p>
+      <h2 class="headline reveal d1">Living, sleeping, cooking, gathering</h2>
+      <div class="gal" style="margin-top:36px">
+        <div class="gi s1 reveal"><div><small>Living</small><b>Warm Living Rooms</b></div></div>
+        <div class="gi s2 reveal d1"><div><small>Rest</small><b>Bedrooms</b></div></div>
+        <div class="gi s3 reveal d2"><div><small>Cook</small><b>Modular Kitchens</b></div></div>
+        <div class="gi s4 reveal d1"><div><small>Whole Home</small><b>Full-Home Interiors</b></div></div>
+        <div class="gi s5 reveal d2"><div><small>Detail</small><b>Styling &amp; Finishes</b></div></div>
+        <div class="gi s6 reveal d3"><div><small>Plan</small><b>2D → 3D</b></div></div>
+      </div>
+      <p class="gnote reveal" style="color:var(--muted-lt)">✎ Placeholder tiles, ready for Sparsh Interiors' real project photos and 3D renders, they drop straight in.</p>
+    </div>
+  </section>
+
+  <section class="panel dark" id="reviews" style="padding-top:0">
+    <div class="wrap" style="padding-top:0">
+      <div class="rhead reveal"><span class="big">5.0</span><span class="st">★★★★★</span><span class="mt">from 40 Google reviews</span></div>
+      <div class="revs">
+        <div class="rev reveal"><p>Working with this interior designer was an absolute pleasure. From the first
+          discussion to the final execution, everything was handled with professionalism and creativity. They truly
+          understood my vision and transformed the space.</p>
+          <div class="who"><div class="av">S</div><div><b>Shivam Ahuja</b><span>Home interiors</span></div><span class="g">★ Google</span></div></div>
+        <div class="rev reveal d1"><p>Sparsh Interiors has a very creative and professional approach. They design
+          beautiful spaces with great attention to detail. Highly recommended. Great work!</p>
+          <div class="who"><div class="av">S</div><div><b>Saanvi Luthra</b><span>Interior project</span></div><span class="g">★ Google</span></div></div>
+        <div class="rev reveal d2"><p>Amazing experience with Sparsh Khanna for my home interiors. Creative and
+          elegant designs, tailored exactly to my taste and budget, handled from 2D planning to 3D visualisation.
+          The final result was even better than I imagined.</p>
+          <div class="who"><div class="av">S</div><div><b>Shreyansh</b><span>Full home</span></div><span class="g">★ Google</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel light" id="visit">
+    <div class="wrap visit">
+      <div>
+        <h3 class="reveal">Visit the studio</h3>
+        <div class="vrow reveal"><div class="vi">📍</div><div><b>Studio</b><p>New, Sukhdev Nagar,<br>Panipat, Haryana 132103</p></div></div>
+        <div class="vrow reveal d1"><div class="vi">🕙</div><div><b>Hours</b><p>Open daily · opens 10 AM<br>(home visits by appointment)</p></div></div>
+        <div class="vrow reveal d2"><div class="vi">📞</div><div><b>Call / WhatsApp</b><p><a href="tel:+918222800466">+91 82228 00466</a></p></div></div>
+        <div class="vrow reveal d3"><div class="vi">💬</div><div><b>Book a consult</b><p><a href="https://wa.me/918222800466?text=Hi%20Sparsh%2C%20I%27d%20like%20to%20discuss%20interior%20design%20for%20my%20home%20with%20Sparsh%20Interiors." target="_blank" rel="noopener">Message on WhatsApp →</a></p></div></div>
+      </div>
+      <a class="mapcard reveal d1" href="https://www.google.com/maps/place/Sparsh_Interiors/data=!4m7!3m6!1s0x390ddb847d0b2431:0xd8176e743b2a2382!8m2!3d29.3966914!4d76.9705814!16s%2Fg%2F11xp8m598_" target="_blank" rel="noopener" aria-label="Sparsh Interiors on Google Maps">
+        <div class="grd"></div><div class="pin"><div class="dot"></div></div>
+        <div class="mb"><b>Get Directions →</b><span>Sukhdev Nagar, Panipat · 9XWC+M6</span></div>
+      </a>
+    </div>
+  </section>
+
+  <section class="panel dark" aria-label="A note for the owner">
+    <div class="wrap" style="padding-top:0">
+      <div class="ownote reveal">
+        <span class="bd">A note for Sparsh ✎</span>
+        <h3>Make it truly yours</h3>
+        <p>Love it? I can put this live on your <b>own name</b>, like <b>sparshinteriors.in</b>, with your real
+          project photos and 3D renders added and everything set up for you, from just <b>₹4,000&ndash;5,000</b>.
+          Just reply to my WhatsApp message and it's done.</p>
+        <span class="pill">Reply on WhatsApp to claim your own domain</span>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="fin">
+      <div class="fbrand">Sparsh Interiors<span>HOME INTERIOR DESIGN · WOMEN-OWNED · PANIPAT</span></div>
+      <div class="fsoc">
+        <a href="https://wa.me/918222800466" target="_blank" rel="noopener" aria-label="WhatsApp"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M.06 24l1.68-6.15A11.87 11.87 0 010 5.94 11.94 11.94 0 0111.94 0 11.94 11.94 0 0124 5.95a11.94 11.94 0 01-17.9 10.3L.06 24zM6.6 20.13l.36.22a9.9 9.9 0 005.04 1.38A9.92 9.92 0 0022 5.95 9.9 9.9 0 0011.94 2 9.92 9.92 0 003.3 16.9l.24.38-1 3.65 4.06-.8z"/></svg></a>
+        <a href="tel:+918222800466" aria-label="Call"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15.5 15.5 0 006.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.4 2.4.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 013 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.3 1z"/></svg></a>
+      </div>
+    </div>
+    <p class="fmeta">New, Sukhdev Nagar, Panipat 132103 · Opens 10 AM · Women-owned<br>© 2026 Sparsh Interiors · Panipat, Haryana</p>
+  </footer>
+</main>
+
+<a class="fab" href="https://wa.me/918222800466?text=Hi%20Sparsh%2C%20I%27d%20like%20to%20discuss%20interior%20design%20for%20my%20home%20with%20Sparsh%20Interiors." target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M.06 24l1.68-6.15A11.87 11.87 0 010 5.94 11.94 11.94 0 0111.94 0 11.94 11.94 0 0124 5.95a11.94 11.94 0 01-17.9 10.3L.06 24zM6.6 20.13l.36.22a9.9 9.9 0 005.04 1.38A9.92 9.92 0 0022 5.95 9.9 9.9 0 0011.94 2 9.92 9.92 0 003.3 16.9l.24.38-1 3.65 4.06-.8z"/><path d="M9.1 6.4c-.22-.5-.46-.5-.67-.51h-.57a1.1 1.1 0 00-.8.37 3.35 3.35 0 00-1.04 2.5 5.83 5.83 0 001.22 3.08c.15.2 2.1 3.36 5.2 4.58 2.57 1 3.1.8 3.66.75.56-.05 1.8-.73 2.05-1.45.26-.7.26-1.32.18-1.44-.07-.13-.27-.2-.57-.35s-1.8-.9-2.07-1c-.28-.1-.48-.15-.68.15-.2.3-.78.99-.95 1.19-.18.2-.35.22-.65.07a8.24 8.24 0 01-2.44-1.5 9.1 9.1 0 01-1.68-2.1c-.18-.3 0-.47.13-.62.13-.13.3-.35.44-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.02-.52C10.1 8.72 9.4 7 9.1 6.4z"/></svg>
+</a>
+
+<script type="importmap">
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}
+</script>
+<script type="module">
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+document.querySelectorAll('.reveal:not(.in)').forEach(el=>io.observe(el));
+const nav=document.getElementById('nav');
+addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>40),{passive:true});
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+try{
+  const THREE=await import('three');
+  const {RoomEnvironment}=await import('three/addons/environments/RoomEnvironment.js');
+  const canvas=document.getElementById('three');
+  const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true,powerPreference:'high-performance'});
+  renderer.setPixelRatio(Math.min(devicePixelRatio,2)); renderer.setSize(innerWidth,innerHeight);
+  renderer.toneMapping=THREE.ACESFilmicToneMapping; renderer.toneMappingExposure=1.08;
+  const scene=new THREE.Scene(); scene.fog=new THREE.FogExp2(0x2c231d,0.03);
+  const camera=new THREE.PerspectiveCamera(42,innerWidth/innerHeight,0.1,100);
+  try{const pm=new THREE.PMREMGenerator(renderer);scene.environment=pm.fromScene(new RoomEnvironment(),0.05).texture;}catch(e){}
+  scene.add(new THREE.HemisphereLight(0xffe6c8,0x2a2018,0.7));
+  const key=new THREE.DirectionalLight(0xfff0dc,1.1); key.position.set(4,7,5); scene.add(key);
+  const lamp=new THREE.PointLight(0xffca80,0,26); lamp.position.set(2.0,1.9,-1.4); scene.add(lamp); // warms up on scroll
+
+  const mk=(c,r,m)=>new THREE.MeshStandardMaterial({color:c,roughness:r,metalness:m||0,transparent:true,opacity:0});
+  const M={wood:mk(0x8a5a3c,.75),wall:mk(0xece0d0,.95),cream:mk(0xe9ddc7,.7),rust:mk(0xbd6a4c,.6),
+    sage:mk(0x87976f,.7),walnut:mk(0x6b4426,.6),brass:mk(0xc2a24e,.3,1),terra:mk(0xb35b44,.7),leaf:mk(0x6f8f5f,.7)};
+
+  const room=new THREE.Group(); scene.add(room);
+  const center=new THREE.Vector3(0,0.7,-0.6); const parts=[];
+  function box(w,h,d,mat){return new THREE.Mesh(new THREE.BoxGeometry(w,h,d),mat);}
+  function cyl(rt,rb,h,mat,s){return new THREE.Mesh(new THREE.CylinderGeometry(rt,rb,h,s||20),mat);}
+  function place(mesh,x,y,z,alwaysHome){
+    const g=new THREE.Group(); g.add(mesh);
+    const assembled=new THREE.Vector3(x,y,z);
+    const dir=assembled.clone().sub(center); if(dir.length()<.2)dir.set(Math.random()-.5,Math.random(),Math.random()-.5);
+    dir.normalize();
+    const exploded=assembled.clone().add(dir.multiplyScalar(3+Math.random()*2.5)); exploded.y+=(Math.random())*2;
+    g.userData={assembled,exploded,se:new THREE.Euler((Math.random()-.5)*1.1,(Math.random()-.5)*1.4,(Math.random()-.5)*1.1),always:!!alwaysHome};
+    g.position.copy(alwaysHome?assembled:exploded); room.add(g); parts.push(g); return g;
+  }
+  // shell (assembles too)
+  place(box(6,0.12,5,M.wood),0,0,-0.6);
+  place(box(6,3,0.14,M.wall),0,1.5,-2.6);
+  place(box(0.14,3,4,M.wall),-3,1.5,-0.6);
+  place(box(2.8,0.05,2,M.terra),0.1,0.06,-0.2);           // rug
+  // sofa
+  const sofa=new THREE.Group();
+  sofa.add(box(2.5,0.45,1.05,M.cream)); const sb=box(2.5,0.7,0.25,M.cream); sb.position.set(0,0.42,-0.4); sofa.add(sb);
+  [-0.85,0.85].forEach(x=>{const a=box(0.28,0.55,1.05,M.cream);a.position.set(x,0.2,0);sofa.add(a);});
+  [-0.6,0.6].forEach(x=>{const c=box(1.0,0.16,0.9,M.rust);c.position.set(x,0.28,0.05);sofa.add(c);});
+  place(sofa,0,0.45,-1.85);
+  // coffee table
+  const ct=new THREE.Group(); const tt=box(1.3,0.1,0.7,M.walnut);tt.position.y=0.42;ct.add(tt);
+  [[-0.55,-0.28],[0.55,-0.28],[-0.55,0.28],[0.55,0.28]].forEach(([x,z])=>{const l=box(0.08,0.42,0.08,M.walnut);l.position.set(x,0.2,z);ct.add(l);});
+  place(ct,0.1,0,-0.3);
+  // floor lamp (light)
+  const fl=new THREE.Group(); const pole=cyl(0.03,0.03,1.7,M.brass);pole.position.y=0.85;fl.add(pole);
+  const base=cyl(0.2,0.24,0.05,M.brass);fl.add(base); const shade=cyl(0.26,0.34,0.4,M.cream,24);shade.position.y=1.75;fl.add(shade);
+  place(fl,2.1,0,-1.6);
+  // plant
+  const pl=new THREE.Group(); const pot=cyl(0.22,0.16,0.32,M.terra);pot.position.y=0.16;pl.add(pot);
+  for(let i=0;i<4;i++){const lf=cyl(0.02,0.16,0.6,M.leaf,8);lf.position.set((Math.random()-.5)*.2,0.55,(Math.random()-.5)*.2);lf.rotation.z=(Math.random()-.5)*.8;pl.add(lf);}
+  const bush=new THREE.Mesh(new THREE.IcosahedronGeometry(0.34,0),M.leaf);bush.position.y=0.75;pl.add(bush);
+  place(pl,-2.4,0,-1.7);
+  // side table + wall art
+  const st=new THREE.Group(); const stt=cyl(0.28,0.28,0.06,M.walnut,24);stt.position.y=0.5;st.add(stt);const stl=cyl(0.05,0.05,0.5,M.walnut);stl.position.y=0.25;st.add(stl);
+  place(st,1.7,0,-1.7);
+  const art1=box(0.9,0.62,0.05,M.rust);const f1=new THREE.Group();const fr1=box(1.0,0.72,0.03,M.walnut);fr1.position.z=-0.02;f1.add(fr1,art1);
+  place(f1,-1.3,1.75,-2.5);
+  const art2=box(0.6,0.8,0.05,M.sage);const f2=new THREE.Group();const fr2=box(0.7,0.9,0.03,M.walnut);fr2.position.z=-0.02;f2.add(fr2,art2);
+  place(f2,0.4,1.85,-2.5);
+
+  const PN=reduce?150:(innerWidth<760?350:800);
+  const pg=new THREE.BufferGeometry(),pp=new Float32Array(PN*3);
+  for(let i=0;i<PN;i++){pp[i*3]=(Math.random()-.5)*20;pp[i*3+1]=Math.random()*10-1;pp[i*3+2]=(Math.random()-.5)*14;}
+  pg.setAttribute('position',new THREE.BufferAttribute(pp,3));
+  const dust=new THREE.Points(pg,new THREE.PointsMaterial({size:.02,color:0xe8cfa8,transparent:true,opacity:.5,depthWrite:false}));
+  scene.add(dust);
+
+  let targetScroll=0,scroll=0,tpx=0,tpy=0,px=0,py=0;
+  const stage=()=>innerHeight*1.9;
+  addEventListener('scroll',()=>{targetScroll=Math.min(1,scrollY/stage());},{passive:true});
+  addEventListener('pointermove',e=>{tpx=e.clientX/innerWidth-.5;tpy=e.clientY/innerHeight-.5;},{passive:true});
+  const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2; const sm=(a,b,e)=>a+(b-a)*e;
+  const clock=new THREE.Clock(); let running=true;
+  document.addEventListener('visibilitychange',()=>{running=!document.hidden;if(running)animate();});
+
+  function animate(){
+    if(!running)return; requestAnimationFrame(animate);
+    const t=clock.getElapsedTime();
+    scroll=sm(scroll,targetScroll,.06); px=sm(px,tpx,.05); py=sm(py,tpy,.05);
+    const p=ease(Math.min(1,scroll));
+    const fade=Math.min(1,Math.max(0,(p-.1)/.7));
+    for(const k in M){M[k].opacity=(k==='terra'?.96:1)*fade;}
+    lamp.intensity=p*p*30; dust.material.opacity=.1+(1-p)*.4;
+    parts.forEach(g=>{const u=g.userData; if(!u.always)g.position.lerpVectors(u.exploded,u.assembled,p);
+      g.rotation.set(u.se.x*(1-p),u.se.y*(1-p),u.se.z*(1-p));});
+    room.rotation.y=(-0.35+scroll*0.5)+px*0.22;
+    const ang=-0.35+p*0.4+px*0.12, rad=9.5-p*3.6;
+    camera.position.set(Math.sin(ang)*rad, 3.0-p*1.0-py*0.7, Math.cos(ang)*rad+0.6);
+    camera.lookAt(0,0.75+p*0.05,-0.6);
+    dust.rotation.y=t*0.01; renderer.render(scene,camera);
+  }
+  animate();
+  addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();
+    renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,2));},{passive:true});
+}catch(err){ console.warn('3D scene skipped:',err); }
+</script>
+</body>
+</html>
